@@ -142,7 +142,6 @@ def run_security_tool():
     check_updates()
     check_ssh_bruteforce()
     update_system()
-    block_ip()
     write_log("\n✅ Güvenlik taraması tamamlandı! Log dosyası oluşturuldu.")
 
 

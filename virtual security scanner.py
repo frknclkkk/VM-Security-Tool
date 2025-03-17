@@ -62,7 +62,7 @@ def update_system():
             write_log("\n📌 Güncellemeler başlatılıyor...")
             update_command = "sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove -y"
 
-            # Kullanıcıya terminalde sudo şifresi girme imkanı sağlayacak yeni komut
+            
             subprocess.run([
                 "gnome-terminal", "--", "bash", "-c",
                 f"echo 'Lütfen terminalde sudo şifrenizi girin ve işlemi tamamlayın:'; {update_command}; exec bash"
@@ -77,11 +77,11 @@ def update_system():
 
 def find_auth_log():
     """Sistemde hangi log dosyasının kullanıldığını bulur."""
-    possible_logs = ["/var/log/auth.log", "/var/log/secure"]  # Ubuntu vs CentOS log konumları
+    possible_logs = ["/var/log/auth.log", "/var/log/secure"]  
     for log_file in possible_logs:
         if os.path.exists(log_file):
             return log_file
-    return None  # Eğer hiçbir dosya yoksa None döndür
+    return None  
 
 
 def check_ssh_bruteforce():
@@ -94,7 +94,7 @@ def check_ssh_bruteforce():
     write_log(f"\n=== SSH BRUTE FORCE KONTROLLERİ ({log_file}) ===")
     
     try:
-        # Başarısız girişlerin toplam sayısını bul
+        
         total_failed_attempts = subprocess.check_output(f"grep 'Failed password' {log_file} | wc -l", shell=True).decode().strip()
         write_log(f"Başarısız SSH girişimleri: {total_failed_attempts}")
         
@@ -106,7 +106,7 @@ def check_ssh_bruteforce():
             write_log("\n🔍 Şüpheli IP adresleri ve giriş denemeleri:")
             write_log(result)
             
-            # Eğer belirlenen eşik değerinden fazla deneme yapan bir IP varsa uyarı ver
+            
             for line in result.split("\n"):
                 if line.strip():
                     count, ip = line.strip().split()
